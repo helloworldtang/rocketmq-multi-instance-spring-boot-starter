@@ -1,0 +1,6 @@
+target/
+*.log
+.idea/
+*.iml
+.DS_Store
+rocketmq-all-4.9.4-bin-release/
