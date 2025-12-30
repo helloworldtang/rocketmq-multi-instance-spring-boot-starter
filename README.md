@@ -2,7 +2,7 @@
 
 ## 简介
 
-这是一个用于 Spring Boot 应用接入 RocketMQ 的 Starter 组件。它旨在解决单一应用需要连接多个 RocketMQ 集群或实例的场景，并提供声明式的消息消费能力，简化了 RocketMQ 的集成过程。
+这是一个用于 Spring Boot 应用接入 RocketMQ 的 Starter 组件。它旨在解决单一应用[需要连接多个 RocketMQ 集群或实例](https://mp.weixin.qq.com/s/LQ17RSi6jMmoVm1fgLrDBA)的场景，并提供声明式的消息消费能力，简化了 RocketMQ 的集成过程。
 
 主要解决的问题：
 
