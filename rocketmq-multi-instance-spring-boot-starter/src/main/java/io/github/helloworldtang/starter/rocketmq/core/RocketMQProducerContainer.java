@@ -38,16 +38,19 @@ public class RocketMQProducerContainer implements ApplicationContextAware {
      * Get the producer by instanceId.
      *
      * @param instanceId the instance id configured in properties
-     * @return the DefaultMQProducer or null if not found
+     * @return the DefaultMQProducer
+     * @throws IllegalStateException if the container has not been initialized
+     * @throws IllegalArgumentException if no producer found for the given instanceId
      */
     public DefaultMQProducer getProducer(String instanceId) {
-        return producerMap.computeIfAbsent(instanceId, id -> {
-            String beanName = id + "Producer";
-            if (applicationContext.containsBean(beanName)) {
-                return applicationContext.getBean(beanName, DefaultMQProducer.class);
-            }
-            return null;
-        });
+        if (applicationContext == null) {
+            throw new IllegalStateException("RocketMQProducerContainer has not been initialized yet.");
+        }
+        String beanName = instanceId + "Producer";
+        if (!applicationContext.containsBean(beanName)) {
+            throw new IllegalArgumentException("No producer found for instanceId: " + instanceId);
+        }
+        return producerMap.computeIfAbsent(instanceId, id -> applicationContext.getBean(beanName, DefaultMQProducer.class));
     }
 
     /**

@@ -17,16 +17,13 @@ public class ProducerController {
     @GetMapping("/send")
     public String send(@RequestParam("msg") String msg) {
         try {
-            // Use static method to get producer
             DefaultMQProducer producer = RocketMQProducerContainer.get("instance1");
-            if (producer == null) {
-                return "Failed: instance1 producer not found";
-            }
             Message message = new Message("TopicTest", "TagA", msg.getBytes());
             producer.send(message);
             return "Sent: " + msg;
+        } catch (IllegalArgumentException e) {
+            return "Failed: " + e.getMessage();
         } catch (Exception e) {
-            e.printStackTrace();
             return "Failed: " + e.getMessage();
         }
     }
